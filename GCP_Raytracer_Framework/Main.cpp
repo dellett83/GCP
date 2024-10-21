@@ -1,14 +1,17 @@
 
 #include "GCP_GFX_Framework.h"
 
-
+#include "RayTracer.h"
+#include "Ray.h"
+#include "Sphere.h"
+#include "Camera.h"
 
 
 
 int main(int argc, char* argv[])
 {
 	// Set window size
-	glm::ivec2 winSize(640, 480);
+	glm::ivec2 winSize(1280, 720);
 
 	// This will handle rendering to screen
 	GCP_Framework _myFramework;
@@ -19,26 +22,25 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
+	RayTracer Raytracer;
+	Camera mainCam;
 
+	Sphere* Red = new Sphere(glm::vec3((winSize.x/2),(winSize.y/2), -100), 100, glm::vec3(1, 0, 0));
+	Sphere* Blue = new Sphere(glm::vec3(0.5, 0.5, 0.5), 0.1, glm::vec3(0, 0, 1));
 
+	Raytracer.m_Sphere.push_back(Red);
+	Raytracer.m_Sphere.push_back(Blue);
 
-	// Preparing a position to draw a pixel
-	glm::ivec2 pixelPosition = winSize / 2;
+	for (int y = 0; y < winSize.y; ++y)
+	{
+		for (int x = 0; x < winSize.x; ++x)
+		{
+			Ray newRay = mainCam.getRay(glm::ivec2(x, y));
+			glm::vec3 colour = Raytracer.traceRay(newRay);
 
-	// Preparing a colour to draw
-	// Colours are RGB, each value ranges between 0 and 1
-	glm::vec3 pixelColour(1, 0, 0);
-
-
-	// Sets all pixels the same colour
-	_myFramework.SetAllPixels( glm::vec3(0.1f,0.1f,0.3f) );
-
-	// Draws a single pixel
-	_myFramework.DrawPixel(pixelPosition, pixelColour);
-
-
-
-
+			_myFramework.DrawPixel(glm::ivec2(x,y), colour);
+		}
+	}
 
 	// Pushes the framebuffer to OpenGL and renders to screen
 	// Also contains an event loop that keeps the window going until it's closed

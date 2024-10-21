@@ -4,10 +4,10 @@ Sphere::Sphere(glm::vec3 _position, float _radius, glm::vec3 _colour)
 {
 	m_position = _position;
 	m_radius = _radius;
-	m_colour = glm::vec3(1, 0, 0);
+	m_colour = _colour;
 }
 
-bool Sphere::intersect(Ray _ray, glm::vec3 _intersectionPoint, glm::vec3 m_position, float m_radius)
+bool Sphere::intersect(Ray _ray, glm::vec3& _intersectionPoint)
 {
 	glm::vec3 distPosOrigin = m_position - _ray.m_origin;
 	float tc = glm::dot(distPosOrigin, _ray.m_direction);
@@ -29,7 +29,13 @@ bool Sphere::intersect(Ray _ray, glm::vec3 _intersectionPoint, glm::vec3 m_posit
 
 glm::vec3 Sphere::ShadeAtPos(glm::vec3 _position)
 {
-	return m_colour;
+	glm::vec3 lightColour = glm::vec3(1,1,1);
+	glm::vec3 lightSource = glm::vec3(0.5f,0.5f,0);
+	glm::vec3 matColour = m_colour;
+	glm::vec3 normal = NormalAtPos(_position);
+	glm::vec3 L = glm::dot(lightSource, normal) * lightColour * matColour;
+
+	return L;
 }
 
 glm::vec3 Sphere::NormalAtPos(glm::vec3 _intersectionPoint)

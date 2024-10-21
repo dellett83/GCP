@@ -1,11 +1,15 @@
 #include "includes.h"
+#include "Ray.h"
 
 class Camera
 {
-	Camera(glm::mat4 _projMatrix, glm::mat4 _viewMatrix);
-	~Camera();
+public:
+	Ray getRay(glm::ivec2 windowPos);
+
 private:
 	glm::mat4 m_projMatrix;
 	glm::mat4 m_viewMatrix;
+
+	
 };
 
