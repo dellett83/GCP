@@ -3,8 +3,10 @@
 
 #include "RayTracer.h"
 #include "Ray.h"
+#include "RayObject.h"
 #include "Sphere.h"
 #include "Camera.h"
+#include "Plane.h"
 
 
 
@@ -23,19 +25,22 @@ int main(int argc, char* argv[])
 	}
 
 	RayTracer Raytracer;
-	Camera mainCam;
+	Camera mainCam(winSize, glm::vec3(0,0,0));
 
-	Sphere* Red = new Sphere(glm::vec3((winSize.x/2),(winSize.y/2), -100), 100, glm::vec3(1, 0, 0));
-	Sphere* Blue = new Sphere(glm::vec3((winSize.x/3), (winSize.y / 2), -100), 100, glm::vec3(1, 0, 0));
+	Sphere Red = Sphere(glm::vec3(5,0, -75), 10, glm::vec3(1, 0, 0));
+	Sphere Blue = Sphere(glm::vec3(-5,0, -50), 10, glm::vec3(1, 0, 0));
 
-	Raytracer.m_Sphere.push_back(Red);
-	Raytracer.m_Sphere.push_back(Blue);
+	Raytracer.m_RayObject.push_back((RayObject*)&Red);
+	Raytracer.m_RayObject.push_back((RayObject*)&Blue);
+
+	Plane plane(glm::vec3(0, -5, -50), glm::vec3(0, 1, 0), glm::vec3(1, 0, 0));
+	Raytracer.m_RayObject.push_back((RayObject*)&plane);
 
 	for (int y = 0; y < winSize.y; ++y)
 	{
 		for (int x = 0; x < winSize.x; ++x)
 		{
-			Ray newRay = mainCam.getRay(glm::ivec2(x, y));
+			Ray newRay = mainCam.getRay(glm::ivec2(x, y), winSize);
 			glm::vec3 colour = Raytracer.traceRay(newRay);
 
 			_myFramework.DrawPixel(glm::ivec2(x,y), colour);
