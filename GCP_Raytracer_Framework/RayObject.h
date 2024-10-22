@@ -9,7 +9,7 @@ public:
 	~RayObject() {}
 	
 	virtual bool intersect(Ray _ray, glm::vec3& _intersectionPoint) = 0;
-	virtual glm::vec3 ShadeAtPos(glm::vec3 _position) = 0;
+	virtual glm::vec3 ShadeAtPos(glm::vec3 _position, glm::vec3 _lightDir) = 0;
 	virtual glm::vec3 NormalAtPos(glm::vec3 _intersectionPoint) = 0;
 
 protected:

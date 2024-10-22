@@ -10,7 +10,7 @@ public:
 	~Sphere() {}
 
 	bool intersect(Ray _ray, glm::vec3& _intersectionPoint);
-	glm::vec3 ShadeAtPos(glm::vec3 _position);
+	glm::vec3 ShadeAtPos(glm::vec3 _position, glm::vec3 _lightDir);
 	glm::vec3 NormalAtPos(glm::vec3 _intersectionPoint);
 
 private:

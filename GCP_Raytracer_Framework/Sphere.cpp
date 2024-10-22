@@ -27,10 +27,10 @@ bool Sphere::intersect(Ray _ray, glm::vec3& _intersectionPoint)
 	return true;
 }
 
-glm::vec3 Sphere::ShadeAtPos(glm::vec3 _position)
+glm::vec3 Sphere::ShadeAtPos(glm::vec3 _position, glm::vec3 _lightDir)
 {
 	glm::vec3 lightColour = glm::vec3(1,1,1);
-	glm::vec3 lightDir = glm::vec3(0,0.5f,0.5f);
+	glm::vec3 lightDir = glm::normalize(_lightDir);
 	glm::vec3 matColour = m_colour;
 	glm::vec3 normal = NormalAtPos(_position);
 	glm::vec3 L = glm::dot(lightDir, normal) * lightColour * matColour;

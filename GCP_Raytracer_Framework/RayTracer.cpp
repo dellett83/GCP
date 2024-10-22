@@ -3,6 +3,7 @@
 glm::vec3 RayTracer::traceRay(Ray _ray)
 {
 	glm::vec3 pixelColour = glm::vec3(0.25, 0.25, 0.25);
+	glm::vec3 lightDir = glm::vec3(0.f, 0.25f, 0.75f);
 
 	float closestDistance = 1000.f;
 
@@ -16,7 +17,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 			float length = glm::length(hitOrigin);
 			if (length < closestDistance)
 			{
-				pixelColour = m_RayObject.at(i)->ShadeAtPos(intersectionPoint);
+				pixelColour = m_RayObject.at(i)->ShadeAtPos(intersectionPoint, lightDir);
 				closestDistance = length;
 			}
 		}

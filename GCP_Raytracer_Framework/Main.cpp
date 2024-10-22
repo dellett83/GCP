@@ -29,11 +29,11 @@ int main(int argc, char* argv[])
 
 	Sphere Red = Sphere(glm::vec3(5,0, -75), 10, glm::vec3(1, 0, 0));
 	Sphere Blue = Sphere(glm::vec3(-5,0, -50), 10, glm::vec3(1, 0, 0));
+	Plane plane(glm::vec3(0, -10, -50), glm::vec3(0, 1, 0), glm::vec3(0, 0, 1));
+
 
 	Raytracer.m_RayObject.push_back((RayObject*)&Red);
 	Raytracer.m_RayObject.push_back((RayObject*)&Blue);
-
-	Plane plane(glm::vec3(0, -5, -50), glm::vec3(0, 1, 0), glm::vec3(1, 0, 0));
 	Raytracer.m_RayObject.push_back((RayObject*)&plane);
 
 	for (int y = 0; y < winSize.y; ++y)
