@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 	Camera mainCam;
 
 	Sphere* Red = new Sphere(glm::vec3((winSize.x/2),(winSize.y/2), -100), 100, glm::vec3(1, 0, 0));
-	Sphere* Blue = new Sphere(glm::vec3(0.5, 0.5, 0.5), 0.1, glm::vec3(0, 0, 1));
+	Sphere* Blue = new Sphere(glm::vec3((winSize.x/3), (winSize.y / 2), -100), 100, glm::vec3(1, 0, 0));
 
 	Raytracer.m_Sphere.push_back(Red);
 	Raytracer.m_Sphere.push_back(Blue);
